@@ -52,9 +52,9 @@ public struct Imagenette<Entropy: RandomNumberGenerator> {
   /// The validation batches.
   public let validation: Validation
   /// Number of training samples
-  public var trainingSampleCount: Int
+  public let trainingSampleCount: Int
   /// Number of validation samples
-  public var validationSampleCount: Int
+  public let validationSampleCount: Int
   /// Creates an instance with `batchSize`.
   ///
   /// - Parameters:
@@ -93,7 +93,8 @@ public struct Imagenette<Entropy: RandomNumberGenerator> {
     do {
       let trainingSamples = try loadImagenetteTrainingDirectory(
         inputSize: inputSize, localStorageDirectory: localStorageDirectory, base: "imagenette")
-        self.trainingSamplesCount = trainingSamples.count
+      print("Here")
+    self.trainingSamplesCount = trainingSamples.count
       let mean = Tensor<Float>([0.485, 0.456, 0.406], on: device)
       let standardDeviation = Tensor<Float>([0.229, 0.224, 0.225], on: device)
 
