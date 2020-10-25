@@ -37,7 +37,7 @@ public protocol ImageClassificationData {
   // The following is probably going to be necessary since we can't extract that
   // information from `Epochs` or `Batches`.
   /// number of samples in the `training` set.
-  var trainingSampleCount: Int {get}
+ // var trainingSampleCount: Int {get}
   ///The number of samples in the `validation` set.
-  var validationSampleCount: Int {get}
+ // var validationSampleCount: Int {get}
 }
