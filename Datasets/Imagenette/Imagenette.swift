@@ -52,9 +52,9 @@ public struct Imagenette<Entropy: RandomNumberGenerator> {
   /// The validation batches.
   public let validation: Validation
   /// Number of training samples
-  public var trainingSampleCount: Int = 0
+  public var trainingSampleCount: Int
   /// Number of validation samples
-  public var validationSampleCount: Int = 0
+  public var validationSampleCount: Int
   /// Creates an instance with `batchSize`.
   ///
   /// - Parameters:
