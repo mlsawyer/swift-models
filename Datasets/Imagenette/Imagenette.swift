@@ -93,7 +93,6 @@ public struct Imagenette<Entropy: RandomNumberGenerator> {
     do {
       let trainingSamples = try loadImagenetteTrainingDirectory(
         inputSize: inputSize, localStorageDirectory: localStorageDirectory, base: "imagenette")
-      print("Here")
       trainingSamplesCount = trainingSamples.count
       let mean = Tensor<Float>([0.485, 0.456, 0.406], on: device)
       let standardDeviation = Tensor<Float>([0.229, 0.224, 0.225], on: device)
