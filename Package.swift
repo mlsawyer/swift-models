@@ -78,7 +78,7 @@ let package = Package(
             path: "Examples/Shallow-Water-PDE"),
         .target(
             name: "LeNet-MNIST",
-            dependencies: ["Datasets", "ImageClassificationModels", "TrainingLoop"],
+            dependencies: ["Datasets", "ImageClassificationModels", "TrainingLoop","Checkpoints"],
             path: "Examples/LeNet-MNIST"),
         .target(
             name: "MobileNetV1-Imagenette",
