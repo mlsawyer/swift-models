@@ -65,7 +65,7 @@ public struct LeNet: Layer {
         let tensor = Tensor<Float>(
             shape: [3, 4, 5], scalars: [Float](stride(from: 0.0, to: 60.0, by: 1.0)))
 
-        self.recursivelyObtainTensors(self,scope:"model", tensors: tensors,separator: "/")
+        self.recursivelyObtainTensors(self,scope:"model", tensors: &tensors, separator: "/")
         tensors = ["model/conv1/filter":conv1filter]
         
        // recursivelyObtainTensors(model, scope: "model", tensors: &tensors, separator: "/")
