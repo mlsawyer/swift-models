@@ -70,7 +70,7 @@ public struct LeNet: Layer {
         
         self.recursivelyObtainTensors(self,scope:"model", tensors: &tensors, separator: "/")
        
-        print(tensor)
+        print(tensors)
        // recursivelyObtainTensors(model, scope: "model", tensors: &tensors, separator: "/")
 
         let writer = CheckpointWriter(tensors: tensors)
