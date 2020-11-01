@@ -42,11 +42,23 @@ public struct LeNet: Layer {
     
     public func writeCheckpoint(to location: URL, name: String) throws {
         var tensors = [String: Tensor<Float>]()
-       /* recursivelyObtainTensors(model, scope: "model", tensors: &tensors, separator: "/")
+       
+        let vector = Tensor<Float>([1])
+        let matrix = Tensor<Float>([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+        let ones = Tensor<Float>(ones: [1, 2, 2, 2, 2, 2, 1])
+        let tensor = Tensor<Float>(
+            shape: [3, 4, 5], scalars: [Float](stride(from: 0.0, to: 60.0, by: 1.0)))
+
+        tensors = [
+            "model/vector": vector, "model/matrix": matrix, "ones": ones, "tensor": tensor,
+        ]
+        
+       
+       // recursivelyObtainTensors(model, scope: "model", tensors: &tensors, separator: "/")
 
         let writer = CheckpointWriter(tensors: tensors)
         try writer.write(to: location, name: name)
-        
+       /*
         // Copy auxiliary files if they need to be in different location than current
         // local storage.
         if location != storage {
