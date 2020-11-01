@@ -32,6 +32,9 @@ extension Dense: ExportableLayer {
     var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
 }
 
+extension Conv2D: ExportableLayer {
+    var nameMappings: [String: String] { ["filer": "f"] }
+}
 
 extension Array: ExportableLayer {
     var nameMappings: [String: String] { ["h": "h"] }
