@@ -49,11 +49,9 @@ public struct LeNet: Layer {
         let tensor = Tensor<Float>(
             shape: [3, 4, 5], scalars: [Float](stride(from: 0.0, to: 60.0, by: 1.0)))
 
-        tensors = [
-            "model/conv1/filter":conv1filter
-        ]
+        self.recursivelyObtainTensors(self,scope:"model", tensors: tensors,separator: "/")
+        tensors = ["model/conv1/filter":conv1filter]
         
-       
        // recursivelyObtainTensors(model, scope: "model", tensors: &tensors, separator: "/")
 
         let writer = CheckpointWriter(tensors: tensors)
@@ -67,6 +65,54 @@ public struct LeNet: Layer {
  */
     }
 
+    
+    public func recursivelyObtainTensors(
+        _ obj: Any, scope: String? = nil, tensors: inout [String: Tensor<Float>], separator: String
+    ) {
+        let m = Mirror(reflecting: obj)
+        let nameMappings: [String: String]
+        if let exportableLayer = obj as? ExportableLayer {
+            nameMappings = exportableLayer.nameMappings
+        } else {
+            nameMappings = [:]
+        }
+
+        var repeatedLabels: [String: Int] = [:]
+        func suffix(for label: String) -> String {
+            if let currentSuffix = repeatedLabels[label] {
+                repeatedLabels[label] = currentSuffix + 1
+                return "\(currentSuffix + 1)"
+            } else {
+                repeatedLabels[label] = 0
+                return "0"
+            }
+        }
+
+        let hasSuffix = (m.children.first?.label == nil)
+
+        var path = scope
+        for child in m.children {
+            let label = child.label ?? "h"
+
+            if let remappedLabel = nameMappings[label] {
+                let labelSuffix = hasSuffix ? suffix(for: remappedLabel) : ""
+                let conditionalSeparator = remappedLabel == "" ? "" : separator
+
+                path = (scope != nil ? scope! + conditionalSeparator : "") + remappedLabel + labelSuffix
+                if let tensor = child.value as? Tensor<Float> {
+                    tensors[path!] = tensor
+                }
+            }
+            recursivelyObtainTensors(child.value, scope: path, tensors: &tensors, separator: separator)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     @differentiable
     public func callAsFunction(_ input: Tensor<Float>) -> Tensor<Float> {
         let convolved = input.sequenced(through: conv1, pool1, conv2, pool2)
