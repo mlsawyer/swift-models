@@ -13,6 +13,8 @@
 // limitations under the License.
 
 import TensorFlow
+import Foundation
+import Checkpoints
 
 // Original Paper:
 // "Gradient-Based Learning Applied to Document Recognition"
@@ -33,6 +35,25 @@ public struct LeNet: Layer {
     public var fc3 = Dense<Float>(inputSize: 84, outputSize: 10)
 
     public init() {}
+    
+    public init(checkpoint: URL) throws {
+        self.init()
+    }
+    
+    public func writeCheckpoint(to location: URL, name: String) throws {
+        var tensors = [String: Tensor<Float>]()
+       /* recursivelyObtainTensors(model, scope: "model", tensors: &tensors, separator: "/")
+
+        let writer = CheckpointWriter(tensors: tensors)
+        try writer.write(to: location, name: name)
+        
+        // Copy auxiliary files if they need to be in different location than current
+        // local storage.
+        if location != storage {
+            try writeAuxiliary(to: location)
+        }
+ */
+    }
 
     @differentiable
     public func callAsFunction(_ input: Tensor<Float>) -> Tensor<Float> {
