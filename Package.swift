@@ -35,7 +35,7 @@ let package = Package(
         .target(
             name: "ModelSupport", dependencies: ["STBImage"], path: "Support",
             exclude: ["STBImage"]),
-        .target(name: "ImageClassificationModels", path: "Models/ImageClassification"),
+        .target(name: "ImageClassificationModels",dependencies: ["Checkpoints"], path: "Models/ImageClassification"),
         .target(name: "VideoClassificationModels", path: "Models/Spatiotemporal"),
         .target(name: "TextModels", dependencies: ["Checkpoints", "Datasets", "SwiftProtobuf"], path: "Models/Text"),
         .target(name: "RecommendationModels", path: "Models/Recommendation"),
