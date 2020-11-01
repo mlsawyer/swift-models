@@ -24,6 +24,22 @@ import Checkpoints
 // Note: this implementation connects all the feature maps in the second convolutional layer.
 // Additionally, ReLU is used instead of sigmoid activations.
 
+protocol ExportableLayer {
+    var nameMappings: [String: String] { get }
+}
+
+extension Dense: ExportableLayer {
+    var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
+}
+
+
+extension Array: ExportableLayer {
+    var nameMappings: [String: String] { ["h": "h"] }
+}
+
+
+
+
 public struct LeNet: Layer {
     public var conv1 = Conv2D<Float>(filterShape: (5, 5, 1, 6), padding: .same, activation: relu)
     public var pool1 = AvgPool2D<Float>(poolSize: (2, 2), strides: (2, 2))
