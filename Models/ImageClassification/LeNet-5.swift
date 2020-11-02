@@ -24,20 +24,20 @@ import Checkpoints
 // Note: this implementation connects all the feature maps in the second convolutional layer.
 // Additionally, ReLU is used instead of sigmoid activations.
 
-protocol ExportableLayer {
-    public var nameMappings: [String: String] { get }
+public protocol ExportableLayer {
+   var nameMappings: [String: String] { get }
 }
 
 extension Dense: ExportableLayer {
-    public var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
+    var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
 }
 
 extension Conv2D: ExportableLayer {
-    public var nameMappings: [String: String] { ["filter": "f"] }
+     var nameMappings: [String: String] { ["filter": "f"] }
 }
 
 extension Array: ExportableLayer {
-    public  var nameMappings: [String: String] { ["h": "h"] }
+     var nameMappings: [String: String] { ["h": "h"] }
 }
 
 
