@@ -25,19 +25,19 @@ import Checkpoints
 // Additionally, ReLU is used instead of sigmoid activations.
 
 public protocol ExportableLayer {
-   var nameMappings: [String: String] { get }
+   public var nameMappings: [String: String] { get }
 }
 
 extension Dense: ExportableLayer {
-    var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
+   public var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
 }
 
 extension Conv2D: ExportableLayer {
-     var nameMappings: [String: String] { ["filter": "f"] }
+    public var nameMappings: [String: String] { ["filter": "f"] }
 }
 
 extension Array: ExportableLayer {
-     var nameMappings: [String: String] { ["h": "h"] }
+    public var nameMappings: [String: String] { ["h": "h"] }
 }
 
 
