@@ -28,15 +28,15 @@ public protocol ExportableLayer {
    var nameMappings: [String: String] { get }
 }
 
-public extension Dense: ExportableLayer {
+extension Dense: ExportableLayer {
    var nameMappings: [String: String] { ["weight": "w", "bias": "b"] }
 }
 
-public extension Conv2D: ExportableLayer {
+extension Conv2D: ExportableLayer {
     var nameMappings: [String: String] { ["filter": "f"] }
 }
 
-public extension Array: ExportableLayer {
+extension Array: ExportableLayer {
     var nameMappings: [String: String] { ["h": "h"] }
 }
 
